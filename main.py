@@ -1,15 +1,19 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
-from config import BOT_TOKEN
+from config import load_config, Config
 from handlers import router
+
+
 
 async def main():
     # Включаем логирование
     logging.basicConfig(level=logging.INFO)
     
+    config: Config = load_config()
+
     # Инициализируем бота и диспетчер
-    bot = Bot(token=BOT_TOKEN)
+    bot = Bot(token=config.tg_bot.token)
     dp = Dispatcher()
     
     # Подключаем роутер с хендлерами

@@ -4,3 +4,4 @@
                    Aiogram 3.17.0
 # stone_scissors_paper_bot
 # stone_scissors_paper_bot
+# game_bot

@@ -1,6 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
-from keyboards.buttons.buttons import scissors_btn, stone_btn, paper_btn, yes_btn, no_btn, help_btn
+from keyboards.buttons import scissors_btn, stone_btn, paper_btn, yes_btn, no_btn, help_btn
 
 kb_builder = ReplyKeyboardBuilder()
 yes_no_kb_builder = ReplyKeyboardBuilder()

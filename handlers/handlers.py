@@ -1,10 +1,11 @@
 import random
 
-from aiogram import Router, F
+from aiogram import Router, F, Bot
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
 from keyboards.keyboards import game_kb, yes_no_kb
 from lexicon.lexicon import LEXICON
+from services.services import who_wins
 
 router = Router()
 
@@ -87,22 +88,15 @@ async def process_negative_answer(message: Message):
 
 @router.message(F.text.lower().in_(list_1))
 async def process_answer(message: Message):
-    answ = random.randint(1, 3)
-    if message.text + positions[answ] in bot_win:
-      await message.answer(
-        text='Я выиграл, сыграем ещё?',
-        reply_markup=yes_no_kb
-    )  
-    elif message.text == positions[answ]:
-        await message.answer(
-        text='Ничья, сыграем ещё?',
-       reply_markup=yes_no_kb
-   )  
-    else:
-        await message.answer(
-        text='Вы выиграли, сыграем ещё?',
+    await message.answer(
+        text=who_wins(message.text),
         reply_markup=yes_no_kb
     ) 
+
+@router.message(Command('delmenu'))
+async def delete_menu(message: Message, bot: Bot):
+    await bot.delete_my_commands()
+    await message.answer(text='Кнопка "Menu" удалена')
 
 @router.message()
 async def process_other_answer(message: Message):

@@ -7,5 +7,8 @@ LEXICON = {
 
 LEXICON_COMMANDS = {
     '/start': 'Запустить бота',
-    '/help': 'Получить справку'
+    '/help': 'Получить справку',
+    '/command_3': 'command_3 desription',
+    '/command_4': 'command_4 desription',
+    '/delmenu': 'Убрать кнопку Menu'
 } 

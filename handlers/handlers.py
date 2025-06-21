@@ -3,7 +3,7 @@ import random
 from aiogram import Router, F, Bot
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
-from keyboards.keyboards import game_kb, yes_no_kb
+from keyboards.keyboards import game_kb, yes_no_kb, inline_kb, inline_kb_2
 from lexicon.lexicon import LEXICON
 from services.services import who_wins
 
@@ -24,7 +24,7 @@ positions = {
 async def process_start_command(message: Message):
     await message.answer(
         LEXICON['start'],
-        reply_markup=yes_no_kb
+        reply_markup=inline_kb_2
         )
 
 # Хендлер на команду /help
@@ -45,13 +45,28 @@ async def process_help_command(message: Message):
 #    await message.answer(LEXICON['menu2'])
 
 ## Хендлер на callback_query
-#@router.callback_query(F.data == "button1")
-#async def process_button1(callback: CallbackQuery):
-#    await callback.answer("Вы нажали кнопку 1!")
+@router.callback_query(F.data == 'big_button_1_pressed')
+async def process_button_1(callback: CallbackQuery):
+    if callback.message.text != 'Была нажата БОЛЬШАЯ КНОПКА 1':
+        await callback.message.edit_text(
+            text='Была нажата БОЛЬШАЯ КНОПКА 1',
+            reply_markup=inline_kb                           
+            )
+    else:
+        await callback.answer(
+            text='Ура! Нажата кнопка 1',
+            show_alert=True
+            ) 
 
-#@router.callback_query(F.data == "button2")
-#async def process_button2(callback: CallbackQuery):
-#    await callback.answer("Вы нажали кнопку 2!") 
+@router.callback_query(F.data == 'big_button_2_pressed')
+async def process_button_2(callback: CallbackQuery):
+    if callback.message.text != 'Была нажата БОЛЬШАЯ КНОПКА 2':
+        await callback.message.edit_text(
+            text='Была нажата БОЛЬШАЯ КНОПКА 2',
+            reply_markup=inline_kb
+            )
+    else:
+        await callback.answer(text='Ура! Нажата кнопка 2') 
 
 @router.message(F.text.lower() == 'да')
 async def process_positive_answer(message: Message):
